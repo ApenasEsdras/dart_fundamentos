@@ -17,10 +17,10 @@ void main() {
     'Helena|24|Feminino',
     'Luana|29|Feminino',
   ];
-  final listaOrganizadaDePessas = <dynamic>{};
-  final mapFilterSexoMasculino = <dynamic>{};
-  final mapFilterSexoFeminino = <dynamic>{};
-  final listaPessoasMaiorDeIdade = <dynamic>{};
+  final listaOrganizadaDePessas = <String>{};
+  final mapFilterSexoMasculino = <String>[];
+  final mapFilterSexoFeminino = <String>[];
+  final listaPessoasMaiorDeIdade = <String>[];
 
   pessoas.sort((pessoa1, pessoa2) {
     final dadoPessoa1 = pessoa1.split('|');
@@ -32,12 +32,13 @@ void main() {
   });
 
   print('Lista inicial:');
+  print('tot List antes: ${pessoas.length}');
   print(pessoas);
 
   print('');
   print('Lista organizada');
-
-  pessoas.where((dados) => listaOrganizadaDePessas.add(dados)).toList();
+  listaOrganizadaDePessas.addAll(pessoas);
+  // pessoas.where((dados) => listaOrganizadaDePessas.add(dados)).toList();
   print(listaOrganizadaDePessas.toList());
 
   print('');
@@ -51,9 +52,9 @@ void main() {
 
     final sexo = dadoPessoa[2].toLowerCase();
     if (sexo == 'masculino') {
-      mapFilterSexoMasculino.add(dadoPessoa);
+      mapFilterSexoMasculino.add(dadosUnicos);
     } else if (sexo == 'feminino') {
-      mapFilterSexoFeminino.add(dadoPessoa);
+      mapFilterSexoFeminino.add(dadosUnicos);
     } else {
       continue;
     }
@@ -64,20 +65,22 @@ void main() {
 
     final idade = int.tryParse(dadoPessoa[1]) ?? 0;
     if (idade > 18) {
-      listaPessoasMaiorDeIdade.add(dadoPessoa);
+      listaPessoasMaiorDeIdade.add(dadosUnicos);
     }
   }
 
   print('Homens');
+  print('tot H: ${mapFilterSexoMasculino.length}');
   print(mapFilterSexoMasculino.toList());
   print('');
   print('Mulheres');
+  print('tot M: ${mapFilterSexoFeminino.length}');
   print(mapFilterSexoFeminino.toList());
 
   print('');
   print('Pessoas com mais de 18: ${listaPessoasMaiorDeIdade.toList()}');
   print('');
-  print('Pessoa mais velha: ${pessoas.last}');
+  print('Pessoa mais velha: ${pessoas.last.split('|')[0]}');
 
   /// Baseado n a lista acima:
   /// [1 - Remova os pacientes duplicados e apresente a nova lista]
